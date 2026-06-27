@@ -1,0 +1,55 @@
+% =====================================================================
+%  main.tex — Documento principal
+%  Manual de Defensa Personal para Mujeres
+%
+%  Compilación recomendada (resuelve índice y bibliografía):
+%      latexmk -pdf main.tex
+%  o, manualmente:
+%      pdflatex main && bibtex main && pdflatex main && pdflatex main
+%
+%  Para compilar sólo algunos capítulos durante la edición, descomenta
+%  y ajusta la línea \includeonly de más abajo.
+% =====================================================================
+\documentclass[12pt, a4paper, twoside, openright]{book}
+
+\input{preamble}
+
+% --- Edición selectiva (opcional) -----------------------------------
+% \includeonly{chapters/01-introduccion}
+
+\begin{document}
+
+% --------------------------- Preliminares ---------------------------
+\frontmatter
+\input{frontmatter/portada}
+
+\cleardoublepage
+\pdfbookmark[0]{Índice}{toc}
+\begin{singlespace}
+\tableofcontents
+\end{singlespace}
+
+% ----------------------------- Contenido ----------------------------
+\mainmatter
+
+\include{chapters/01-introduccion}
+\include{chapters/02-estructura-programa}
+\include{chapters/03-actitud}
+\include{chapters/04-como-actuar}
+\include{chapters/05-ejercicios-observacion}
+\include{chapters/06-cuestiones-legales}
+\include{chapters/07-tipos-agresores}
+\include{chapters/08-agresor-sexual}
+\include{chapters/09-violencia-pareja}
+\include{chapters/10-tipos-agresiones}
+\include{chapters/11-entrenamiento}
+\include{chapters/12-puntos-a-golpear}
+\include{chapters/13-guardia-y-distancia}
+\include{chapters/14-aplicaciones-moviles}
+\include{chapters/15-conclusiones}
+
+% ------------------------ Material posterior ------------------------
+\backmatter
+\include{chapters/16-fuentes-bibliografia}
+
+\end{document}

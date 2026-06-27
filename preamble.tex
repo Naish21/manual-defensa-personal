@@ -1,0 +1,191 @@
+% =====================================================================
+%  preamble.tex
+%  Configuración global del documento: paquetes, idioma, estilo,
+%  cajas destacadas y bibliografía.
+%
+%  Motor recomendado: pdflatex (compila también con xelatex/lualatex).
+%  Bibliografía: BibTeX + natbib (estilo autor-año).
+% =====================================================================
+
+% ---------------------------------------------------------------------
+%  Codificación y tipografía
+% ---------------------------------------------------------------------
+\usepackage[T1]{fontenc}      % Codificación de fuente moderna (acentos)
+\usepackage[utf8]{inputenc}   % El fichero fuente está en UTF-8
+% Latin Modern (fuentes vectoriales con buena cobertura de acentos).
+% Se carga sólo si está disponible; en distribuciones completas y en
+% Overleaf lo está. Si falta, se usa la Computer Modern por defecto.
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+% microtype: protrusion siempre; expansion=false evita el error fatal
+% «auto expansion is only possible with scalable fonts» cuando, por
+% falta de lmodern, se recurre a fuentes de mapa de bits.
+\usepackage[protrusion=true, expansion=false]{microtype}
+\usepackage{textcomp}         % Símbolos adicionales
+
+% ---------------------------------------------------------------------
+%  Idioma español
+%  Se usa babel moderno con \babelprovide para no depender del antiguo
+%  spanish.ldf. Aporta «Capítulo», «Índice», fechas y guiones en español.
+% ---------------------------------------------------------------------
+\usepackage{babel}
+\babelprovide[import, main]{spanish}
+
+% ---------------------------------------------------------------------
+%  Geometría de página
+% ---------------------------------------------------------------------
+\usepackage[
+  a4paper,
+  top=2.6cm,
+  bottom=2.6cm,
+  inner=2.8cm,
+  outer=2.4cm,
+  headsep=14pt,
+]{geometry}
+
+% ---------------------------------------------------------------------
+%  Color: paleta del manual
+% ---------------------------------------------------------------------
+\usepackage{xcolor}
+\definecolor{primario}{HTML}{1F4E5F}   % Azul petróleo (títulos, filetes)
+\definecolor{secundario}{HTML}{8E3B46} % Granate (acentos)
+\definecolor{aviso}{HTML}{B23A48}      % Rojo aviso
+\definecolor{consejo}{HTML}{2E7D5B}    % Verde consejo
+\definecolor{regla}{HTML}{B07D2B}      % Ámbar regla de oro
+\definecolor{grisclaro}{HTML}{F4F4F1}  % Fondo suave de cajas
+
+% ---------------------------------------------------------------------
+%  Listas, tablas y figuras
+% ---------------------------------------------------------------------
+\usepackage{enumitem}         % Control fino de listas
+\setlist{itemsep=2pt, topsep=4pt, parsep=0pt}
+\usepackage{booktabs}         % Filetes de tabla de calidad
+\usepackage{tabularx}         % Tablas de ancho fijo
+\usepackage{array}            % Mejoras en columnas
+\usepackage{ragged2e}         % \RaggedRight en celdas
+\usepackage{graphicx}         % Imágenes (carpeta figures/)
+\graphicspath{{figures/}}
+
+% ---------------------------------------------------------------------
+%  Comillas (estilo español: «...»)
+% ---------------------------------------------------------------------
+\usepackage{csquotes}
+
+% ---------------------------------------------------------------------
+%  Cajas destacadas (avisos, consejos, definiciones)
+% ---------------------------------------------------------------------
+\usepackage[most]{tcolorbox}
+
+% Caja genérica con título e icono textual
+\newtcolorbox{cajadestacada}[2][]{%
+  enhanced, breakable,
+  colback=grisclaro, colframe=#2,
+  boxrule=0.4pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
+  borderline west={3pt}{0pt}{#2},
+  arc=2pt, fonttitle=\bfseries\color{#2},
+  #1
+}
+
+% Aviso importante (rojo)
+\newtcolorbox{aviso}{%
+  enhanced, breakable,
+  colback=aviso!6, colframe=aviso,
+  boxrule=0.4pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
+  borderline west={3pt}{0pt}{aviso}, arc=2pt,
+}
+
+% Consejo (verde)
+\newtcolorbox{consejo}{%
+  enhanced, breakable,
+  colback=consejo!6, colframe=consejo,
+  boxrule=0.4pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
+  borderline west={3pt}{0pt}{consejo}, arc=2pt,
+}
+
+% Regla de oro (ámbar)
+\newtcolorbox{reglaoro}{%
+  enhanced, breakable,
+  colback=regla!8, colframe=regla,
+  boxrule=0.4pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
+  borderline west={3pt}{0pt}{regla}, arc=2pt,
+}
+
+% Definición / concepto (azul primario)
+\newtcolorbox{definicion}{%
+  enhanced, breakable,
+  colback=primario!5, colframe=primario,
+  boxrule=0.4pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
+  borderline west={3pt}{0pt}{primario}, arc=2pt,
+}
+
+% ---------------------------------------------------------------------
+%  Estilo de títulos
+% ---------------------------------------------------------------------
+\usepackage{titlesec}
+
+\titleformat{\chapter}[display]
+  {\normalfont\sffamily\bfseries\color{primario}}
+  {\filright\large\sffamily Capítulo \thechapter}
+  {6pt}
+  {\Huge}
+  [\vspace{2pt}{\color{primario}\titlerule[1pt]}]
+\titlespacing*{\chapter}{0pt}{10pt}{28pt}
+
+\titleformat{\section}
+  {\normalfont\sffamily\large\bfseries\color{primario}}
+  {\thesection}{0.8em}{}
+\titleformat{\subsection}
+  {\normalfont\sffamily\bfseries\color{secundario}}
+  {\thesubsection}{0.6em}{}
+
+% ---------------------------------------------------------------------
+%  Encabezados y pies de página
+% ---------------------------------------------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyhead[LE]{\small\nouppercase{\leftmark}}
+\fancyhead[RO]{\small\nouppercase{\rightmark}}
+\fancyfoot[C]{\thepage}
+% Estilo «plain» (primera página de capítulo) sólo con el número
+\fancypagestyle{plain}{%
+  \fancyhf{}\fancyfoot[C]{\thepage}%
+  \renewcommand{\headrulewidth}{0pt}}
+
+% ---------------------------------------------------------------------
+%  Espaciado e interlineado
+% ---------------------------------------------------------------------
+\usepackage{setspace}
+\setstretch{1.25}
+\setlength{\parskip}{1.0em}
+\setlength{\parindent}{0pt}
+\usepackage{emptypage}        % Páginas en blanco realmente en blanco
+
+% ---------------------------------------------------------------------
+%  Bibliografía (autor-año con natbib + BibTeX)
+% ---------------------------------------------------------------------
+\usepackage[round, authoryear]{natbib}
+\bibliographystyle{plainnat}
+\setcitestyle{aysep={,}}
+
+% ---------------------------------------------------------------------
+%  Hiperenlaces y marcadores (cargar casi al final)
+% ---------------------------------------------------------------------
+\usepackage[
+  colorlinks=true,
+  linkcolor=primario,
+  citecolor=secundario,
+  urlcolor=secundario,
+  pdftitle={Defensa Personal para Mujeres. Manual del Estudiante},
+  pdfauthor={Artes Marciales Bilbao},
+  pdfsubject={Manual de defensa personal y autoprotección},
+]{hyperref}
+\usepackage{bookmark}
+\urlstyle{same}
+
+% ---------------------------------------------------------------------
+%  Comandos auxiliares
+% ---------------------------------------------------------------------
+% Teléfono/recurso destacado en línea
+\newcommand{\recurso}[1]{\textbf{\color{primario}#1}}
