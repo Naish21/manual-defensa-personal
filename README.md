@@ -31,7 +31,7 @@ manual-defensa-personal/
 │   └── 16-fuentes-bibliografia.tex   # Bibliografía (BibTeX) + licencia
 ├── bibliography/
 │   └── referencias.bib      # Base de datos bibliográfica (autor-año)
-├── figures/                 # Imágenes (vacío de momento; ver más abajo)
+├── figures/                 # Imágenes
 ├── .latexmkrc               # Configuración de compilación con latexmk
 ├── Makefile                 # Atajos de compilación
 └── .gitignore               # Ignora ficheros auxiliares de LaTeX
