@@ -10,18 +10,17 @@
 % ---------------------------------------------------------------------
 %  Codificación y tipografía
 % ---------------------------------------------------------------------
-\usepackage[T1]{fontenc}      % Codificación de fuente moderna (acentos)
-\usepackage[utf8]{inputenc}   % El fichero fuente está en UTF-8
-% Latin Modern (fuentes vectoriales con buena cobertura de acentos).
-% Se carga sólo si está disponible; en distribuciones completas y en
-% Overleaf lo está. Si falta, se usa la Computer Modern por defecto.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
-% microtype: protrusion siempre; expansion=false evita el error fatal
-% «auto expansion is only possible with scalable fonts» cuando, por
-% falta de lmodern, se recurre a fuentes de mapa de bits.
 \usepackage[protrusion=true, expansion=false]{microtype}
 \usepackage{textcomp}         % Símbolos adicionales
 
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
+\emergencystretch=2em
 % ---------------------------------------------------------------------
 %  Idioma español
 %  Se usa babel moderno con \babelprovide para no depender del antiguo
@@ -37,8 +36,8 @@
   a4paper,
   top=2.6cm,
   bottom=2.6cm,
-  inner=2.8cm,
-  outer=2.4cm,
+  inner=3.0cm,
+  outer=2.2cm,
   headsep=14pt,
 ]{geometry}
 
@@ -63,7 +62,25 @@
 \usepackage{array}            % Mejoras en columnas
 \usepackage{ragged2e}         % \RaggedRight en celdas
 \usepackage{graphicx}         % Imágenes (carpeta figures/)
+\setkeys{Gin}{
+    width=.82\textwidth,
+    keepaspectratio
+}
 \graphicspath{{figures/}}
+
+\usepackage[font=small,
+labelfont=bf,
+labelsep=period]{caption}
+
+\captionsetup{
+justification=centering,
+skip=8pt
+}
+
+\setkeys{Gin}{
+width=.82\textwidth,
+keepaspectratio
+}
 
 % ---------------------------------------------------------------------
 %  Comillas (estilo español: «...»)
@@ -80,41 +97,45 @@
   enhanced, breakable,
   colback=grisclaro, colframe=#2,
   boxrule=0.4pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
-  borderline west={3pt}{0pt}{#2},
+  borderline west={2pt}{0pt}{#2},
   arc=2pt, fonttitle=\bfseries\color{#2},
   #1
 }
 
 % Aviso importante (rojo)
 \newtcolorbox{aviso}{%
+  title=\faExclamationTriangle\ Aviso,
   enhanced, breakable,
   colback=aviso!6, colframe=aviso,
   boxrule=0.4pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
-  borderline west={3pt}{0pt}{aviso}, arc=2pt,
+  borderline west={2pt}{0pt}{aviso}, arc=2pt,
 }
 
 % Consejo (verde)
 \newtcolorbox{consejo}{%
+  title=\faLightbulb\ Consejo,
   enhanced, breakable,
   colback=consejo!6, colframe=consejo,
   boxrule=0.4pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
-  borderline west={3pt}{0pt}{consejo}, arc=2pt,
+  borderline west={2pt}{0pt}{consejo}, arc=2pt,
 }
 
 % Regla de oro (ámbar)
 \newtcolorbox{reglaoro}{%
+  title=Regla de Oro,
   enhanced, breakable,
   colback=regla!8, colframe=regla,
   boxrule=0.4pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
-  borderline west={3pt}{0pt}{regla}, arc=2pt,
+  borderline west={2pt}{0pt}{regla}, arc=2pt,
 }
 
 % Definición / concepto (azul primario)
 \newtcolorbox{definicion}{%
+  title=Definición,
   enhanced, breakable,
   colback=primario!5, colframe=primario,
   boxrule=0.4pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
-  borderline west={3pt}{0pt}{primario}, arc=2pt,
+  borderline west={2pt}{0pt}{primario}, arc=2pt,
 }
 
 % ---------------------------------------------------------------------
@@ -143,22 +164,33 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
-\renewcommand{\headrulewidth}{0.4pt}
+
+\renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\footrulewidth}{0pt}
-\fancyhead[LE]{\small\nouppercase{\leftmark}}
-\fancyhead[RO]{\small\nouppercase{\rightmark}}
-\fancyfoot[C]{\thepage}
-% Estilo «plain» (primera página de capítulo) sólo con el número
-\fancypagestyle{plain}{%
-  \fancyhf{}\fancyfoot[C]{\thepage}%
-  \renewcommand{\headrulewidth}{0pt}}
+
+\fancyhead[LE]{%
+\small\sffamily\color{primario}
+\leftmark}
+
+\fancyhead[RO]{%
+\small\sffamily\color{primario}
+Manual de Defensa Personal}
+
+\fancyfoot[C]{%
+\sffamily\small\thepage}
+
+\fancypagestyle{plain}{
+\fancyhf{}
+\fancyfoot[C]{\sffamily\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+}
 
 % ---------------------------------------------------------------------
 %  Espaciado e interlineado
 % ---------------------------------------------------------------------
 \usepackage{setspace}
-\setstretch{1.25}
-\setlength{\parskip}{1.0em}
+\setstretch{1.28}
+\setlength{\parskip}{0.8em}
 \setlength{\parindent}{0pt}
 \usepackage{emptypage}        % Páginas en blanco realmente en blanco
 
@@ -173,12 +205,19 @@
 %  Hiperenlaces y marcadores (cargar casi al final)
 % ---------------------------------------------------------------------
 \usepackage[
+final,
+tracking=true,
+kerning=true,
+spacing=true
+]{microtype}
+
+\usepackage[
   colorlinks=true,
   linkcolor=primario,
   citecolor=secundario,
   urlcolor=secundario,
   pdftitle={Defensa Personal para Mujeres. Manual del Estudiante},
-  pdfauthor={Artes Marciales Bilbao},
+  pdfauthor={Jorge Aranda Moro - Artes Marciales Bilbao},
   pdfsubject={Manual de defensa personal y autoprotección},
 ]{hyperref}
 \usepackage{bookmark}
@@ -189,3 +228,16 @@
 % ---------------------------------------------------------------------
 % Teléfono/recurso destacado en línea
 \newcommand{\recurso}[1]{\textbf{\color{primario}#1}}
+
+\usepackage{eso-pic}
+
+% ---------------------------------------------------------------------
+%  Indice
+% ---------------------------------------------------------------------
+
+\usepackage{tocloft}
+
+\renewcommand{\cftchapfont}{\large\bfseries}
+\renewcommand{\cftchappagefont}{\large\bfseries}
+
+\setlength{\cftbeforechapskip}{12pt}

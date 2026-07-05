@@ -1,36 +1,49 @@
 % =====================================================================
-%  main.tex — Documento principal
-%  Manual de Defensa Personal para Mujeres
-%
-%  Compilación recomendada (resuelve índice y bibliografía):
-%      latexmk -pdf main.tex
-%  o, manualmente:
-%      pdflatex main && bibtex main && pdflatex main && pdflatex main
-%
-%  Para compilar sólo algunos capítulos durante la edición, descomenta
-%  y ajusta la línea \includeonly de más abajo.
+%  main.tex — Manual de Defensa Personal para Mujeres
 % =====================================================================
-\documentclass[12pt, a4paper, twoside, openright]{book}
+
+\documentclass[
+    12pt,
+    a4paper,
+    twoside,
+    openright
+]{book}
 
 \input{preamble}
 
-% --- Edición selectiva (opcional) -----------------------------------
+% ----------------------------------------------------
+% Compilar únicamente determinados capítulos
+% ----------------------------------------------------
 % \includeonly{chapters/01-introduccion}
 
 \begin{document}
 
-% --------------------------- Preliminares ---------------------------
+% ====================================================
+% FRONT MATTER
+% ====================================================
+
 \frontmatter
+\pagestyle{empty}
+
+% ----------------------- Portada ---------------------
 \input{frontmatter/portada}
 
-\cleardoublepage
-\pdfbookmark[0]{Índice}{toc}
-\begin{singlespace}
-\tableofcontents
-\end{singlespace}
+% ----------------------- Índice ----------------------
 
-% ----------------------------- Contenido ----------------------------
+\cleardoublepage
+\pagestyle{plain}
+
+\pdfbookmark[0]{Índice}{toc}
+\tableofcontents
+
+% ====================================================
+% CUERPO DEL LIBRO
+% ====================================================
+
+\cleardoublepage
 \mainmatter
+\pagestyle{fancy}
+\raggedbottom
 
 \include{chapters/01-introduccion}
 \include{chapters/02-estructura-programa}
@@ -48,8 +61,14 @@
 \include{chapters/14-aplicaciones-moviles}
 \include{chapters/15-conclusiones}
 
-% ------------------------ Material posterior ------------------------
+% ====================================================
+% MATERIAL FINAL
+% ====================================================
+
 \backmatter
+
+\cleardoublepage
+
 \include{chapters/16-fuentes-bibliografia}
 
 \end{document}
