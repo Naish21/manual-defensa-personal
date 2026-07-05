@@ -11,7 +11,8 @@ manual-defensa-personal/
 ├── main.tex                 # Documento principal: incluye todos los capítulos
 ├── preamble.tex             # Paquetes, idioma, estilos y cajas destacadas
 ├── frontmatter/
-│   └── portada.tex          # Página de título
+│   ├── portada.tex          # Portada (imagen a página completa)
+│   └── contraportada.tex    # Contraportada (sinopsis, autor y créditos)
 ├── chapters/                # Un archivo por capítulo
 │   ├── 01-introduccion.tex
 │   ├── 02-estructura-programa.tex
@@ -89,6 +90,12 @@ pdflatex main
 
 - **Comillas.** Se emplea `csquotes` (`\enquote{...}`), que produce las
   comillas «latinas» propias del español.
+- **Citas de apertura.** Cada capítulo se abre con un epígrafe mediante el
+  comando `\citacap{texto de la cita}{autor}` (definido en `preamble.tex`
+  sobre el paquete `epigraph`).
+- **Tipografía.** Si está instalado, se usa *Linux Libertine* (serif) con
+  *Biolinum* (sans) para un aspecto de libro; si no, degrada a *Latin
+  Modern* de forma automática.
 
 ## Imágenes
 
