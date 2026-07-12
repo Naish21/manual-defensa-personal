@@ -56,13 +56,13 @@
 %  Geometría de página
 % ---------------------------------------------------------------------
 \usepackage[
-  a4paper,
-  top=3.0cm,
-  bottom=3.0cm,
-  inner=3.3cm,
-  outer=2.9cm,
-  headsep=18pt,
-  footskip=1.4cm,
+  a5paper,
+  top=2.0cm,
+  bottom=2.0cm,
+  inner=2.2cm,   % margen de lomo: no bajar de ~2cm en encuadernación
+  outer=1.7cm,
+  headsep=12pt,
+  footskip=1.0cm,
 ]{geometry}
 
 % ---------------------------------------------------------------------
@@ -87,7 +87,7 @@
 \usepackage{ragged2e}         % \RaggedRight en celdas
 \usepackage{graphicx}         % Imágenes (carpeta figures/)
 \setkeys{Gin}{
-    width=.82\textwidth,
+    width=.76\textwidth,
     keepaspectratio
 }
 \graphicspath{{figures/}}
@@ -171,20 +171,20 @@ keepaspectratio
 \titleformat{\chapter}[display]
   {\normalfont\sffamily\color{primario}}
   {\filright
-   {\color{secundario}\sffamily\bfseries\fontsize{15}{15}\selectfont
+   {\color{secundario}\sffamily\bfseries\fontsize{12}{12}\selectfont
     \MakeUppercase{\chaptertitlename}}\;
-   {\color{primario!35}\fontsize{60}{60}\selectfont\thechapter}}
+   {\color{primario!35}\fontsize{44}{44}\selectfont\thechapter}}
   {4pt}
-  {\Huge\bfseries}
-  [\vspace{8pt}{\color{primario!45}\titlerule[1.1pt]}]
-\titlespacing*{\chapter}{0pt}{24pt}{24pt}
+  {\LARGE\bfseries}
+  [\vspace{6pt}{\color{primario!45}\titlerule[1.0pt]}]
+\titlespacing*{\chapter}{0pt}{16pt}{18pt}
 
 % Capítulos sin numeración (índice, bibliografía): sobrio y en línea
 \titleformat{name=\chapter,numberless}[display]
   {\normalfont\sffamily\color{primario}}
   {}{0pt}
-  {\Huge\bfseries}
-  [\vspace{8pt}{\color{primario!45}\titlerule[1.1pt]}]
+  {\LARGE\bfseries}
+  [\vspace{6pt}{\color{primario!45}\titlerule[1.0pt]}]
 
 \titleformat{\section}
   {\normalfont\sffamily\large\bfseries\color{primario}}
@@ -242,8 +242,8 @@ keepaspectratio
 %  Espaciado e interlineado
 % ---------------------------------------------------------------------
 \usepackage{setspace}
-\setstretch{1.22}
-\setlength{\parskip}{0.65em plus 0.15em}
+\setstretch{1.20}
+\setlength{\parskip}{0.60em plus 0.15em}
 \setlength{\parindent}{0pt}
 \usepackage{emptypage}        % Páginas en blanco realmente en blanco
 
@@ -293,5 +293,32 @@ keepaspectratio
 \setlength{\cftbeforesecskip}{2pt}
 
 % Título del índice en la línea del diseño del resto del libro
-\renewcommand{\cfttoctitlefont}{\normalfont\sffamily\Huge\bfseries\color{primario}}
-\setlength{\cftaftertoctitleskip}{18pt}
+\renewcommand{\cfttoctitlefont}{\normalfont\sffamily\LARGE\bfseries\color{primario}}
+\setlength{\cftaftertoctitleskip}{14pt}
+
+% ---------------------------------------------------------------------
+%  Páginas de relleno para cuadrar el pliego de imprenta
+% ---------------------------------------------------------------------
+% Página de cortesía: completamente en blanco, sin folio ni cabecera.
+\newcommand{\paginacortesia}{%
+  \clearpage
+  \thispagestyle{empty}%
+  \null
+  \clearpage}
+
+% Página de notas: rayado suave para la alumna. Más elegante que un
+% blanco puro para rellenar el final de un manual de entrenamiento.
+% (\foreach está disponible porque tcolorbox[most] carga tikz/pgffor.)
+\newcommand{\paginanotas}{%
+  \clearpage
+  \thispagestyle{plain}%
+  \null
+  {\noindent\sffamily\Large\bfseries\color{primario}Notas\par}%
+  \vspace{1.2em}%
+  \begingroup
+    \setstretch{1}%
+    \foreach \n in {1,...,14}{%
+      \noindent{\color{primario!25}\rule{\linewidth}{0.4pt}}\par
+      \vspace{1.7em}}%
+  \endgroup
+  \clearpage}

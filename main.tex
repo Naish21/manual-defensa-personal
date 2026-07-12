@@ -2,12 +2,7 @@
 %  main.tex — Manual de Defensa Personal para Mujeres
 % =====================================================================
 
-\documentclass[
-    12pt,
-    a4paper,
-    twoside,
-    openright
-]{book}
+\documentclass[9pt, a5paper, twoside, openright]{extbook}
 
 \input{preamble}
 
@@ -28,7 +23,12 @@
 % ----------------------- Portada ---------------------
 \input{frontmatter/portada}
 
-% ----------------------- Índice ----------------------
+% Páginas de cortesía iniciales (ajustar 0, 1 o 2 según cuadre el total).
+% Van SIEMPRE de dos en dos si quieres mantener el índice en página impar.
+% \paginacortesia
+% \paginacortesia
+
+% ----------------------- Índice ---------------------
 
 \cleardoublepage
 \pagestyle{plain}
@@ -70,6 +70,21 @@
 \cleardoublepage
 
 \include{chapters/16-fuentes-bibliografia}
+
+% ====================================================
+% AJUSTE DE PAGINACIÓN (cuadrar a 56 páginas interiores)
+% ====================================================
+% Aquí es donde conviene absorber las páginas que falten:
+% primero páginas de \paginanotas (útiles en un manual de
+% entrenamiento) y, como última página par, una \paginacortesia
+% que quede en blanco justo antes de la contraportada.
+%
+\paginanotas
+\paginanotas
+% \paginanotas
+% \paginacortesia
+
+\cleardoublepage
 
 % ----------------------- Contraportada ---------------------
 \input{frontmatter/contraportada}
